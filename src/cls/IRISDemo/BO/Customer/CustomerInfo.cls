@@ -2,7 +2,7 @@
 Class IRISDemo.BO.Customer.Operation.CustomerInfo Extends (%SerialObject, %JSON.Adaptor, %XML.Adaptor)
 {
 
-Property firstName As %String;
+Property firstName As %String(MAXLEN = 5);
 
 Property middleName As %String;
 
@@ -10,7 +10,7 @@ Property lastName As %String;
 
 Property DOB As %Date;
 
-Property SSN As %String [ Required ];
+Property SSN As %String;
 
 Property mobilePhone As %String;
 
