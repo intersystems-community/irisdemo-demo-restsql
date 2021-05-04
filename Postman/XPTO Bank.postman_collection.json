@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "b57b01fb-3052-4b1e-8c60-4a03f08d9cc5",
+		"name": "XPTO Bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

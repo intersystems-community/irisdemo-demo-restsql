@@ -1,0 +1,120 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "XPTO Bank API",
+    "description": "This API lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  },
+  "host": "localhost:52773",
+  "basePath": "/xptobank/API/v1",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/customer/{customerId}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "operationId": "customerGetById",
+        "description": "Get customer details by customer ID",
+        "summary": "Get customer information",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/customerInfo"
+            }
+          },
+          "400": {
+            "description": "customerId must be specified."
+          },
+          "404": {
+            "description": "Customer not found."
+          } 
+        }
+      }
+    },
+    "/customer": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Create a new customer",
+        "description": "Create a new customer with the given information.",
+        "operationId": "customerCreate",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "customerInfo",
+            "schema": {
+              "$ref": "#/definitions/customerInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/customerInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    
+    "customerInfo": {
+      "type":"object",
+      "required": ["firstName", "lastName", "SSN", "DOB"],
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "John"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "SSN": {
+          "type": "string",
+          "example": "1234-123-123"
+        },
+        "DOB": {
+          "type": "string",
+          "example": "1978-06-10"
+        },
+        "mobile": {
+          "type": "string",
+          "example": "617 555-1234"
+        },
+        "address":{
+          "type":"object",
+          "properties": {
+            "street": {
+              "type": "string",
+              "example": "123 Washington St."
+            },
+            "city": {
+              "type": "string",
+              "example": "Cambridge"
+            },
+            "zip": {
+              "type": "string",
+              "example": "02654"
+            }
+          }
+        }
+      }
+    }
+  }
+}
