@@ -31,7 +31,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/customerInfo"
+              "$ref": "#/definitions/customer"
             }
           },
           "400": {
@@ -64,7 +64,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/customerInfo"
+              "$ref": "#/definitions/customer"
             }
           }
         }
@@ -72,7 +72,19 @@
     }
   },
   "definitions": {
-    
+    "customer": {
+      "type":"object",
+      "required": ["customerId", "customerInfo" ],
+      "properties": {
+        "customerId": {
+          "type": "string",
+          "example": "123"
+        },
+        "customerInfo": {
+          "$ref": "#/definitions/customerInfo"
+        }
+      }
+    },
     "customerInfo": {
       "type":"object",
       "required": ["firstName", "lastName", "SSN", "DOB"],
@@ -93,7 +105,7 @@
           "type": "string",
           "example": "1978-06-10"
         },
-        "mobile": {
+        "mobilePhone": {
           "type": "string",
           "example": "617 555-1234"
         },
@@ -111,6 +123,14 @@
             "zip": {
               "type": "string",
               "example": "02654"
+            },
+            "state": {
+              "type": "string",
+              "example": "Massachusetts"
+            },
+            "ZIP": {
+              "type": "string",
+              "example": "01234"
             }
           }
         }

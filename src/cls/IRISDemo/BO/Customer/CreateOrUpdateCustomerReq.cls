@@ -2,17 +2,7 @@
 Class IRISDemo.BO.Customer.Operation.CreateOrUpdateCustomerReq Extends (%Persistent, Ens.Request)
 {
 
-Property Name As %String;
-
-Property SSN As %String;
-
-Property MobilePhone As %String;
-
-Property HomeStreet As %String;
-
-Property HomeCity As %String;
-
-Property HomeState As %String;
+Property CustomerInfo As IRISDemo.BO.Customer.Operation.CustomerInfo;
 
 Storage Default
 {
@@ -21,22 +11,7 @@ Storage Default
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
-<Value>Name</Value>
-</Value>
-<Value name="3">
-<Value>SSN</Value>
-</Value>
-<Value name="4">
-<Value>MobilePhone</Value>
-</Value>
-<Value name="5">
-<Value>HomeStreet</Value>
-</Value>
-<Value name="6">
-<Value>HomeCity</Value>
-</Value>
-<Value name="7">
-<Value>HomeState</Value>
+<Value>CustomerInfo</Value>
 </Value>
 </Data>
 <DataLocation>^IRISDemo.B52AF.CreateOrUpdAE95D</DataLocation>

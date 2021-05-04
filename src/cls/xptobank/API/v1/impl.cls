@@ -12,10 +12,26 @@ Parameter ExposeServerExceptions = 0;
 ///     customerId<br/>
 ClassMethod customerGetById(customerId As %Integer) As %Stream.Object
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+   
+    Set status = ##class(Ens.Director).CreateBusinessService("Customer Services", .service)
+    $$$ThrowOnError(status)
+
+    Set serviceRequest = ##class(IRISDemo.BO.Customer.Operation.GetCustomerReq).%New()
+    Set serviceRequest.CustomerId=customerId
+
+    Set status = service.ProcessInput(serviceRequest, .serviceResponse)
+    $$$ThrowOnError(status)
+
+    Set status = serviceResponse.CustomerInfo.%JSONExportToString(.customerInfoJSONString)
+    $$$ThrowOnError(status)
+
+    Set response = {}
+    Set response.customerId=customerId
+    Set response.customerInfo={}.%FromJSON(customerInfoJSONString)
+
+    Do ..%SetStatusCode(200)
+
+    Return response
 }
 
 /// Create a new customer with the given information.<br/>
@@ -23,10 +39,23 @@ ClassMethod customerGetById(customerId As %Integer) As %Stream.Object
 ///     customerInfo<br/>
 ClassMethod customerCreate(customerInfo As %Stream.Object) As %Stream.Object
 {
-    //(Place business logic here)
-    //Do ..%SetStatusCode(<HTTP_status_code>)
-    //Do ..%SetHeader(<name>,<value>)
-    //Quit (Place response here) ; response may be a string, stream or dynamic object
+    Set status = ##class(Ens.Director).CreateBusinessService("Customer Services", .service)
+    $$$ThrowOnError(status)
+
+    Set serviceRequest = ##class(IRISDemo.BO.Customer.Operation.CreateOrUpdateCustomerReq).%New()
+    Set status = serviceRequest.CustomerInfo.%JSONImport(customerInfo)
+    $$$ThrowOnError(status)
+
+    Set status = service.ProcessInput(serviceRequest, .serviceResponse)
+    $$$ThrowOnError(status)
+
+    Set response = {}
+    Set response.customerId=serviceResponse.CustomerId
+    Set response.customerInfo={}.%FromJSON(customerInfo)
+
+    Do ..%SetStatusCode(200)
+
+    Return response
 }
 
 }

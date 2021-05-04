@@ -14,6 +14,8 @@ XData ProductionDefinition
   </Item>
   <Item Name="Java Gateway Service" Category="" ClassName="EnsLib.JavaGateway.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
+  <Item Name="Customer Services" Category="" ClassName="IRISDemo.BS.Customer.Service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 
