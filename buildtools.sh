@@ -30,6 +30,6 @@ exit_with_error() {
 
 GIT_REPO_NAME=irisdemo-demo-restsql
 
-TAG=$(cat ./VERSION)
+TAG=$(head -n 1 ./VERSION)
 exit_if_error "VERSION file does not exist."
-IMAGE_NAME=$GIT_REPO_NAME:$TAG
+IMAGE_NAME=intersystemsdc/$GIT_REPO_NAME:$TAG
