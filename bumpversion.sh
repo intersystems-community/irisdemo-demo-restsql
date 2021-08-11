@@ -65,6 +65,7 @@ if [ -f VERSION ]; then
     #
     # sed -E -i '' "s;(appVersion: *)\"[0-9][0-9.]*\";\1\"$INPUT_STRING\";g" ./helm/Chart.yaml
     # sed -E -i '' "s;(  +tag: *)[0-9][0-9.]*;\1$INPUT_STRING;g" ./helm/values.yaml
+    sed -E -i '' "s;irisdemo-demo-restsql:[0-9][0-9.]*;irisdemo-demo-restsql:$INPUT_STRING;g" ./README.md
 
     echo "## $INPUT_STRING ($NOW)" > tmpfile
     git log --pretty=format:"  - %s" "v$BASE_STRING"...HEAD >> tmpfile
@@ -79,7 +80,7 @@ if [ -f VERSION ]; then
     #
     # Add files that were changed by the bumpversion.sh:
     #
-    git add CHANGELOG.md VERSION ./helm/Chart.yaml ./helm/values.yaml
+    git add CHANGELOG.md VERSION ./README.md
 
     git commit -m "Bump version to ${INPUT_STRING}."
     git tag -a -m "Tag version ${INPUT_STRING}." "v$INPUT_STRING"
