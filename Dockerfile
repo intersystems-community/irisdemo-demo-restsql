@@ -1,4 +1,4 @@
-FROM intersystemsdc/irisdemo-base-irisint-community:version-1.9.5U
+FROM intersystemsdc/irisdemo-base-irisint-community:version-1.9.6U
 
 ARG IRIS_PROJECT_FOLDER_NAME=src
 
