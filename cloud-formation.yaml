@@ -1,0 +1,62 @@
+# Usage:
+#   aws cloudformation --region us-east-2 create-stack --stack-name RESTSQLDemo --template-body file://cloud-formation.yaml
+
+# This template will:
+#   Create a VPC with:
+#       1 Public Subnets
+#       1 Private Subnets
+#   An Internet Gateway (with routes to it for Public Subnets)
+#   A NAT Gateway for outbound access (with routes from Private Subnets set to use it)
+#     
+
+# Connect to the EC2 instance through SSH
+# After creating the instance, we want to connect to it through ssh to install the webserver. 
+# This requires a key pair to be created in AWS, and the output pem file to be used when connecting. 
+# Do this by navigating to the AWS console → EC2 → Key Pair. Create a key pair, and give it a name. 
+# Once completed, a .pem file with the same name will be generated (the one I generated is called restsql-demo.pem)
+# For more info on how to generate a key pair have a look at https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#prepare-key-pair
+#
+# After the stack is up, grab its public IP address and use it together with your SSH certificate to connect:
+#
+# ssh ubuntu@<copied IP address> -i ~/restsql-demo.pem
+
+
+Resources:
+  Ec2Instance: 
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: restsql-demo       # Name of the Certificate to use to connect using SSH
+      InstanceType: m4.large
+      ImageId: ami-00399ec92321828f5
+      BlockDeviceMappings:
+      - DeviceName: /dev/sdc
+        VirtualName: ephemeral0
+      Tags:
+      - Key: Name
+        Value: RESTSQLDemo
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          
+          sudo apt-get update -y
+
+          sudo apt-get install -y \
+              apt-transport-https \
+              ca-certificates \
+              curl \
+              gnupg \
+              lsb-release
+          
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+          echo \
+            "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+            $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+          sudo groupadd docker
+          sudo usermod -aG docker $USER
+
+          sudo systemctl enable docker.service
+          sudo systemctl enable containerd.service
