@@ -12,7 +12,7 @@ Just clone this repository in your PC, run the ./build.sh script and then the ./
 Or, you can simply type:
 
 ```bash
-docker run --rm -it --init --name restsql -p 1972:1972 -p 52773:52773 intersystemsdc/irisdemo-demo-restsql:1.0.3
+docker run --rm -it --init --name restsql -p 1972:1972 -p 52773:52773 intersystemsdc/irisdemo-demo-restsql:1.0.4
 ```
 
 Please, watch the video above for guidance.
